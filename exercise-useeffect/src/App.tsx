@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import { findEmployee } from './data';
 
@@ -10,15 +10,22 @@ function App() {
   let employee = findEmployee(employeeId);
   */
 
-  // USING useState
-
+  // USING useState   
   let [employeeId, setEmployeeId] = useState(1);
-  const [employee, setEmployee] = useState(findEmployee(employeeId));
+  // senão definir nada o objeto é montando como undefined
+  const [employee, setEmployee] = useState<any>();
 
-  function changeEmployeeId() {
-    setEmployeeId(employeeId++);
+  useEffect(()=> {    
     setEmployee(findEmployee(employeeId));
+  },[employeeId]);
+
+  function changeEmployeeId() {    
+  
     console.log("conde pass on changeEmployeeId");
+    employeeId++;
+    setEmployeeId(employeeId); 
+    // use Effect vai observar essa mudança no id vai buscar o employee de acordo com o id incrementado.  
+    // para isso tem que colocar o employeeId na lista de dependências do useEffect
   }
 
   return (
