@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import { findEmployee } from './data';
 
+
 function App() {
 
   // WRONG FORM
@@ -15,18 +16,21 @@ function App() {
   // senão definir nada o objeto é montando como undefined
   const [employee, setEmployee] = useState<any>();
 
-  useEffect(()=> {    
+  useEffect(() => {
     setEmployee(findEmployee(employeeId));
-  },[employeeId]);
+  }, [employeeId]);
 
-  function changeEmployeeId() {    
-  
+  function changeEmployeeId() {
     console.log("conde pass on changeEmployeeId");
-    employeeId++;
-    setEmployeeId(employeeId); 
-    // use Effect vai observar essa mudança no id vai buscar o employee de acordo com o id incrementado.  
-    // para isso tem que colocar o employeeId na lista de dependências do useEffect
+    if (employeeId <3) {
+      employeeId++;
+      setEmployeeId(employeeId);
+      // use Effect vai observar essa mudança no id vai buscar o employee de acordo com o id incrementado.  
+      // para isso tem que colocar o employeeId na lista de dependências do useEffect
+    } 
   }
+
+  
 
   return (
     <>
